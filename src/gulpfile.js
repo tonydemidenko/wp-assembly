@@ -33,7 +33,7 @@ var paths = {
         srcImages: './images/*.*'
     },
     dev: {
-        devHtml: '..dev//tpl/pages/',
+        devHtml: '../dev/tpl/pages/',
         devHtmlNav: '../dev/',
         devStyle: '../dev/styles/',
         devJs: '../dev/js/',
@@ -41,12 +41,12 @@ var paths = {
         devImages: '../dev/'
     },
     dist: {
-        distHtml: '..dist/assets/tpl/pages/',
-        distHtmlNav: '..dist/assets/tpl/',
-        distStyle: '..dist/assets/styles/',
-        distJs: '..dist/assets/js/',
-        distFonts: '..dist/assets/fonts/',
-        distImages: '..dist/assets/'
+        distHtml: '../dist/tpl/pages/',
+        distHtmlNav: '../dist/',
+        distStyle: '../dist/styles/',
+        distJs: '../dist/js/',
+        distFonts: '../dist/fonts/',
+        distImages: '../dist/'
     }
 };
 
@@ -100,6 +100,7 @@ gulp.task('style:dev', function() {
         .pipe(sass())
         .pipe(postCss(plugins))
         .pipe(sourcemaps.write())
+        .pipe(rename({suffix: '.min'}))
         .pipe(gulp.dest(paths.dev.devStyle))
         .pipe(reload({stream: true}));
 });
@@ -117,6 +118,7 @@ gulp.task('js:dev', function() {
     .pipe(sourcemaps.init())
     .pipe(babel({presets: ['env']}))
     .pipe(sourcemaps.write())
+    .pipe(rename({suffix: '.min'}))
     .pipe(gulp.dest(paths.dev.devJs))
     .pipe(reload({stream: true}));
 });
@@ -187,3 +189,106 @@ gulp.task('watchDev', function() { // watch
 });
 
 gulp.task('serve', ['dev', 'webserver', 'watchDev']);
+
+// final build
+
+gulp.task('html:build', function() {
+    return gulp.src(paths.src.srcHtml)
+        .pipe(plumber({
+            errorHandler : notify.onError(function (err) {
+                return {
+                    title: 'HTML',
+                    message: err.message
+                }
+            })
+        }))
+        .pipe(rigger())
+        .pipe(gulp.dest(paths.dist.distHtml))
+});
+
+gulp.task('htmlNav:build', function() {
+    return gulp.src(paths.src.srcHtmlNav)
+        .pipe(plumber({
+            errorHandler : notify.onError(function (err) {
+                return {
+                    title: 'HTML',
+                    message: err.message
+                }
+            })
+        }))
+        .pipe(rigger())
+        .pipe(gulp.dest(paths.dist.distHtmlNav))
+});
+
+gulp.task('style:build', function() {
+    var plugins = [
+        autoprefixer,
+        mediaGroup,
+        cssNew
+    ];
+
+    return gulp.src(paths.src.srcStyle)
+        .pipe(plumber({
+            errorHandler : notify.onError(function (err) {
+                return {
+                    title: 'STYLE',
+                    message: err.message
+                }
+            })
+        }))
+        .pipe(sass())
+        .pipe(postCss(plugins))
+        .pipe(rename({suffix: '.min'}))
+        .pipe(gulp.dest(paths.dist.distStyle))
+});
+
+gulp.task('js:build', function() {
+    return gulp.src(paths.src.srcJs)
+    .pipe(plumber({
+        errorHandler : notify.onError(function (err) {
+            return {
+                title: 'JS',
+                message: err.message
+            }
+        })
+    }))
+    .pipe(babel({presets: ['env']}))
+    .pipe(rename({suffix: '.min'}))
+    .pipe(gulp.dest(paths.dist.distJs))
+});
+
+gulp.task('fonts:build', function() {
+    return gulp.src(paths.src.srcFonts)
+        .pipe(plumber({
+            errorHandler : notify.onError(function (err) {
+                return {
+                    title: 'FONTS',
+                    message: err.message
+                }
+            })
+        }))
+        .pipe(gulp.dest(paths.dist.distFonts));
+});
+
+gulp.task('images:build', function() {
+    return gulp.src(paths.src.srcImages, {base: './'})
+        .pipe(plumber({
+            errorHandler : notify.onError(function (err) {
+                return {
+                    title: 'IMAGES',
+                    message: err.message
+                }
+            })
+        }))
+        .pipe(imagemin())
+        .pipe(gulp.dest(paths.dist.distImages))
+});
+
+gulp.task('build', [
+    'html:build',
+    'htmlNav:build',
+    'style:build',
+    'js:build',
+    'fonts:build',
+    'images:build'
+]);
