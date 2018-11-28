@@ -11,12 +11,12 @@ var gulp = require('gulp'),
     rigger = require('gulp-rigger'),
     sourcemaps = require('gulp-sourcemaps'),
     imagemin = require('gulp-imagemin'),
-    uglify = require('gulp-uglify'),
+    minifyJs = require('gulp-uglify'),
     babel = require('gulp-babel'),
     postCss = require('gulp-postcss'),
     sass = require('gulp-sass'),
     autoprefixer = require('autoprefixer'),
-    cssnano = require('cssnano'),
+    minifyCss = require('cssnano'),
     mediaGroup = require('css-mqpacker'),
     cssNew = require('postcss-preset-env');
 
@@ -238,6 +238,7 @@ gulp.task('style:build', function() {
         }))
         .pipe(sass())
         .pipe(postCss(plugins))
+        .pipe(minifyCss())
         .pipe(rename({suffix: '.min'}))
         .pipe(gulp.dest(paths.dist.distStyle))
 });
@@ -253,6 +254,7 @@ gulp.task('js:build', function() {
         })
     }))
     .pipe(babel({presets: ['env']}))
+    .pipe(minifyJs())
     .pipe(rename({suffix: '.min'}))
     .pipe(gulp.dest(paths.dist.distJs))
 });

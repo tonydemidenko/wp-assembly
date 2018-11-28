@@ -1,0 +1,33 @@
+// 1. Basic variables
+	// 1.1 Colors
+$black: #000;
+$white: #fff;
+
+	// 1.2 Other
+
+// 2. Work variables
+	// 2.1 Colors
+$main-color: $black;
+
+	// 2.2 Typography (fonts and text variables)
+$f-family-base: 'Open Sans', sans-serif;
+$f-size-base: 14px;
+
+	// 2.3 Media
+		// 2.3.1 Mobile first
+$desktop: 1024px;
+$tablet: 768px;
+$phone: 640px;
+
+		// 2.3.1 Desktop first
+$desktop-df: 1023px;
+$tablet-df: 767px;
+$phone-df: 639px;
+
+	// 2.4 Other
+
+	// 2.5 Forms
+
+	// 2.6 Nav and links
+
+	// 2.7 Buttons
