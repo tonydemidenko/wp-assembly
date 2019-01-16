@@ -33,7 +33,7 @@ var paths = {
         srcImages: './images/*.*'
     },
     dev: {
-        devHtml: '../dev/tpl/pages/',
+        devHtml: '../dev/pages/',
         devHtmlNav: '../dev/',
         devStyle: '../dev/styles/',
         devJs: '../dev/js/',
@@ -41,7 +41,7 @@ var paths = {
         devImages: '../dev/'
     },
     dist: {
-        distHtml: '../dist/tpl/pages/',
+        distHtml: '../dist/pages/',
         distHtmlNav: '../dist/',
         distStyle: '../dist/styles/',
         distJs: '../dist/js/',

@@ -39,6 +39,9 @@ $link-main-color: $main-color;
 $link-main-hover: darken($link-main-color, 20%);
 $link-active-hover: darken($link-main-color, 20%);
 
+$nav-color: $main-color;
+$nav-hover: darken($nav-color, 20%);
+
 	// 2.7 Buttons
 $btn-main-color: $black;
 $btn-main-border: $black;

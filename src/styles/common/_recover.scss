@@ -1,5 +1,3 @@
-/* Based on https://necolas.github.io/normalize.css/ */
-
 *,
 *:before,
 *:after {
@@ -12,6 +10,7 @@ html {
 
 body {
   margin: 0;
+  width: 100%;
 }
 
 main,
