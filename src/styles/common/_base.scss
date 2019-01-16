@@ -1,0 +1,22 @@
+.wrapper {
+	display: flex;
+	flex-direction: column;
+  width: 100%;
+  overflow: hidden;
+  min-height: 100vh;
+  
+  &_flexfix {
+    display: flex;
+  }
+}
+
+.header,
+.footer {
+	flex-shrink: 1;
+	width: 100%;
+}
+
+.main {
+	flex-grow: 1;
+	width: 100%;
+}
