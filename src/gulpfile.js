@@ -224,7 +224,8 @@ gulp.task('style:build', function() {
     var plugins = [
         autoprefixer,
         mediaGroup,
-        cssNew
+        cssNew,
+        minifyCss
     ];
 
     return gulp.src(paths.src.srcStyle)
@@ -238,7 +239,6 @@ gulp.task('style:build', function() {
         }))
         .pipe(sass())
         .pipe(postCss(plugins))
-        .pipe(minifyCss())
         .pipe(rename({suffix: '.min'}))
         .pipe(gulp.dest(paths.dist.distStyle))
 });
