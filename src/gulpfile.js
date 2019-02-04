@@ -172,7 +172,7 @@ gulp.task('watchDev', function() { // watch
         gulp.start('html:dev');
     });
     watch([paths.src.srcHtmlNav], function() {
-        gulp.start('htmlStart:dev');
+        gulp.start('htmlNav:dev');
     });
     watch([paths.src.srcStyle], function() {
         gulp.start('style:dev');
